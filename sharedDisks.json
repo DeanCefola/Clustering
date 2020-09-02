@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "diskName": {
+            "type": "string",
+            "defaultValue": "sharedDisk-0"
+        },
+        "diskSizeGb": {
+            "type": "int",
+            "defaultValue": 1024
+        }
+    },    
+    "variables": {
+        
+    },
+    "resources": [
+        {
+            "apiVersion": "2019-07-01",
+            "type": "Microsoft.Compute/disks",
+            "name": "[parameters('diskName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "creationData": {
+                    "createOption": "empty"
+                },
+                "diskSizeGB": "[parameters('diskSizeGb')]",
+				"maxShares": 2
+            },
+            "sku": {
+                "name": "Premium_LRS"
+            },
+            "tags": {
+                "costcenter": "AA-Money",
+                "Application": "Shared Disk"
+            }
+        }
+    ],
+    "outputs": {}
+}
